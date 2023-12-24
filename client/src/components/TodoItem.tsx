@@ -2,27 +2,28 @@ import React from "react";
 import styles from "../styles/modules/todoItem.module.scss";
 import { TodoListItem } from "../models/TodoListItem";
 import { format, parse } from "date-fns";
-import { FaEdit } from "react-icons/fa";
-
-import { MdDelete } from "react-icons/md";
-import { Button, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import ProgressBtn from "./ProgressBtn";
+import { useAppDispatch } from "../app/hooks";
+import { deleteTodo } from "../features/todoSlice";
+import toast from "react-hot-toast";
 
 type TodoItemProps = {
   todo: TodoListItem;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
-  console.log("Todo time:", todo.time);
   const parsedDate = parse(todo.time, "dd/MM/yyyy HH:mm:ss", new Date());
 
   console.log(todo);
-  console.log(todo.priority);
+
+  const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    console.log("deleting");
+    dispatch(deleteTodo(todo.id));
+    toast.success("Todo deleted successfully");
   };
 
   const handleUpdate = () => {
