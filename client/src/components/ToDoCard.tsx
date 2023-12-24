@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import styles from "../styles/modules/card.module.scss";
+import { toast } from "react-hot-toast";
 import { MdOutlineClose } from "react-icons/md";
 import Button from "./Button";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../features/todoSlice";
+import { v4 as uuid } from "uuid";
 
 type ToDoCardProps = {
   cardOpen: boolean;
@@ -12,6 +16,8 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("low");
 
+  const dispatch = useDispatch();
+
   const handlePriorityClick = (selectedPriority: string) => {
     setPriority(selectedPriority);
   };
@@ -21,8 +27,20 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(title, priority);
-    setCardOpen(false);
+    if (title && priority) {
+      dispatch(
+        addTodo({
+          id: uuid(),
+          title,
+          priority,
+          time: new Date().toLocaleString(),
+        })
+      );
+      toast.success("Task added successfully!");
+      setCardOpen(false);
+    } else {
+      toast.error("Please add a title!");
+    }
   };
 
   return (
@@ -53,7 +71,7 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
                 onChange={(e) => setTitle(e.target.value)}
               />
               <label htmlFor="priority">Priority</label>
-              <ul className={styles.buttonContainer}>
+              <ul className={styles.buttonContainer} id="priority">
                 <li>
                   <Button
                     variant="high"
@@ -95,7 +113,9 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
               </ul>
 
               <div className={styles.submitBtnContainer}>
-                <Button variant="primary">Add</Button>
+                <Button variant="primary" type="submit">
+                  Add
+                </Button>
               </div>
             </form>
           </div>
