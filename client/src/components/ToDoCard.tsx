@@ -3,9 +3,10 @@ import styles from "../styles/modules/card.module.scss";
 import { toast } from "react-hot-toast";
 import { MdOutlineClose } from "react-icons/md";
 import Button from "./Button";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../app/hooks";
 import { addTodo } from "../features/todoSlice";
 import { v4 as uuid } from "uuid";
+import { Progress } from "../models/TodoListItem";
 
 type ToDoCardProps = {
   cardOpen: boolean;
@@ -16,14 +17,15 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("low");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handlePriorityClick = (selectedPriority: string) => {
     setPriority(selectedPriority);
   };
 
-  const isButtonActive = (buttonPriority: string) =>
-    priority === buttonPriority;
+  const isButtonActive = (buttonPriority: string) => {
+    return priority === buttonPriority;
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
           id: uuid(),
           title,
           priority,
+          progress: Progress.ToDo,
           time: new Date().toLocaleString(),
         })
       );

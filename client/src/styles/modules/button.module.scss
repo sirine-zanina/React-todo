@@ -19,6 +19,21 @@
     cursor: pointer;
   }
 }
+.buttonProgress {
+  width: 70px;
+  margin: 0 2.5em;
+  display: inline-block;
+  height: auto;
+  padding: 0.5em;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--gray-3);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+}
 .button--primary {
   background-color: var(--primaryPurple);
   color: var(--white);
