@@ -14,9 +14,11 @@ type ButtonProps = {
   children: React.ReactNode;
   variant?: keyof typeof buttonTypes;
   type?: "button" | "submit";
+  onClick?: () => void;
+  style?: React.CSSProperties;
 };
 
-const Button = ({ children, variant, type, ...rest }: ButtonProps) => {
+const Button = ({ children, variant, type, style, ...rest }: ButtonProps) => {
   let styleClass =
     variant === "high" || variant === "medium" || variant === "low"
       ? styles.priorityButton
@@ -29,6 +31,7 @@ const Button = ({ children, variant, type, ...rest }: ButtonProps) => {
         styles[`button--${buttonTypes[variant as keyof typeof buttonTypes]}`]
       )}
       type={type === "submit" ? "submit" : "button"}
+      style={style}
       {...rest}
     >
       {children}
