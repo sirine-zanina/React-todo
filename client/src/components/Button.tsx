@@ -16,6 +16,7 @@ type ButtonProps = {
   type?: "button" | "submit";
   onClick?: () => void;
   style?: React.CSSProperties;
+  disabled?: boolean;
 };
 
 const Button = ({ children, variant, type, style, ...rest }: ButtonProps) => {

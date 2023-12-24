@@ -9,13 +9,15 @@ import { v4 as uuid } from "uuid";
 import { Progress } from "../models/TodoListItem";
 
 type ToDoCardProps = {
+  type: string;
   cardOpen: boolean;
   setCardOpen: (isOpen: boolean) => void;
 };
 
-const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
+const ToDoCard = ({ type, cardOpen, setCardOpen }: ToDoCardProps) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("low");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -27,20 +29,32 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
     return priority === buttonPriority;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    setIsButtonDisabled(false);
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (title === "") {
+      toast.error("Please enter a title.");
+      return;
+    }
     if (title && priority) {
-      dispatch(
-        addTodo({
-          id: uuid(),
-          title,
-          priority,
-          progress: Progress.ToDo,
-          time: new Date().toLocaleString(),
-        })
-      );
-      toast.success("Task added successfully!");
-      setCardOpen(false);
+      if (type === "add") {
+        dispatch(
+          addTodo({
+            id: uuid(),
+            title,
+            priority,
+            progress: Progress.ToDo,
+            time: new Date().toLocaleString(),
+          })
+        );
+        toast.success("Task added successfully!");
+        setCardOpen(false);
+      } else if (type === "update") {
+        console.log("updating");
+      }
     } else {
       toast.error("Please add a title!");
     }
@@ -53,7 +67,7 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
           <div className={styles.container}>
             <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
               <h1 className={styles.formTitle}>
-                Add task
+                {type === "update" ? "Update" : "Add"} Task
                 <div
                   className={styles.closeButton}
                   onClick={() => setCardOpen(false)}
@@ -71,7 +85,7 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
                 placeholder="Type your task here..."
                 autoFocus
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="priority">Priority</label>
               <ul className={styles.buttonContainer} id="priority">
@@ -116,8 +130,16 @@ const ToDoCard = ({ cardOpen, setCardOpen }: ToDoCardProps) => {
               </ul>
 
               <div className={styles.submitBtnContainer}>
-                <Button variant="primary" type="submit">
-                  Add
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={isButtonDisabled}
+                  style={{
+                    cursor: isButtonDisabled ? "not-allowed" : "pointer",
+                    backgroundColor: isButtonDisabled ? "var(--gray-3)" : "",
+                  }}
+                >
+                  {type === "update" ? "Update" : "Add"}
                 </Button>
               </div>
             </form>

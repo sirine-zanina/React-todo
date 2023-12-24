@@ -18,7 +18,7 @@ const Header = () => {
         <option value="incomple">Incomplete</option>
         <option value="complete">Complete</option>
       </SelectButton>
-      <ToDoCard cardOpen={cardOpen} setCardOpen={setCardOpen} />
+      <ToDoCard type="add" cardOpen={cardOpen} setCardOpen={setCardOpen} />
     </div>
   );
 };

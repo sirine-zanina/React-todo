@@ -53,6 +53,9 @@ export const todoSlice = createSlice({
         state.todoList = todoListArray;
       }
     },
+    updateTodo: (state, action) => {
+      
+    }
   },
 });
 

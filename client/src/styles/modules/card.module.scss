@@ -11,7 +11,7 @@
   align-items: center;
 }
 .container {
-  background-color: var(--bg-1);
+  background-color: var(--white);
   max-width: 580px;
   width: 90%;
   margin: 0 auto;
@@ -68,10 +68,10 @@
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     background-color: var(--white);
     color: var(--black-2);
     font-size: 1.3rem;
