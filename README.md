@@ -3,6 +3,8 @@
 ## A to-do list web app for an internship application.
 
 ## ![todolist](client/public/images/main.png)
+## ![todolistadd](client/public/images/addtask.png)
+## ![todolistupdate](client/public/images/updatetask.png)
 
 ---
 
