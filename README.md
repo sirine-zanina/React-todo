@@ -1,8 +1,8 @@
 # React-todolist
 ## A to-do list web app for an internship application.
-## Stack
-## Frontend
-### Technologies Used:
+---
+### Frontend
+#### Technologies Used:
    -[React](https://reactjs.org/) -A declarative, efficient, and flexible JavaScript library for building user interfaces.
    
    -[Redux Toolkit](https://redux-toolkit.js.org/) - A set of tools to simplify the logic of managing state in React applications.
