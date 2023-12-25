@@ -121,7 +121,11 @@ const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
             animate="visible"
             exit="exit"
           >
-            <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+            <form
+              className={styles.form}
+              onSubmit={(e) => handleSubmit(e)}
+              action="/todos/add" method="POST"
+            >
               <h1 className={styles.formTitle}>
                 {type === "update" ? "Update" : "Add"} Task
                 <motion.div

@@ -1,9 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 // database
-const db = require("./config/database");
+const db = require("./database");
 
 // test db
 db.authenticate()
@@ -12,14 +13,16 @@ db.authenticate()
 
 const app = express();
 
-app.set("view engine", "handlebars");
+// middleware
+app.use(bodyParser.urlencoded({ extended: false })); // for req.body
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("INDEX");
 });
 
 // Todo routes
-app.use("/todos", require("./routes/todos"));
+app.use("/todos", require("./src/routes/todos"));
 
 const PORT = process.env.PORT || 5000;
 

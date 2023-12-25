@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("../config/database");
+const db = require("../../database");
 
 const Todo = db.define("todo", {
   title: {
@@ -14,7 +14,6 @@ const Todo = db.define("todo", {
   createdAt: {
     type: Sequelize.DATE,
   },
-  
 });
 
 module.exports = Todo;
