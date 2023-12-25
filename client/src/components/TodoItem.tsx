@@ -20,11 +20,10 @@ type TodoItemProps = {
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const parsedDate = parse(todo.time, "dd/MM/yyyy HH:mm:ss", new Date());
 
-  console.log(todo);
   const dispatch = useAppDispatch();
-  const [checked, setChecked] = useState(false);
   const [updateCardOpen, setUpdateCardOpen] = useState(false);
   const [progress, setProgress] = useState(todo.progress);
+  const [checked, setChecked] = useState(todo.progress === "Done");
 
   useEffect(() => {
     if (todo.progress === "Done") {
@@ -56,28 +55,25 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   };
 
   const handleProgressClick = () => {
-    let newProgress = "";
-    let newChecked = checked; // Preserve the current checked state
+    const progressStates = ["To Do", "In Progress", "Done"];
+    const currentIndex = progressStates.indexOf(progress);
 
-    // toggle between "To Do", "In Progress", and "Done"
-    if (progress === "To Do") {
-      newProgress = "In Progress";
-    } else if (progress === "In Progress") {
-      newProgress = "Done";
-      newChecked = true; // set checked to true when moving to "Done"
-    } else if (progress === "Done") {
-      newProgress = "To Do";
-      newChecked = false; // set checked to false when moving back to "To Do"
-    }
+    // Calculate the next index in a circular manner
+    const nextIndex = (currentIndex + 1) % progressStates.length;
 
-    setProgress(newProgress); // update the local state
-    setChecked(newChecked); // update the checked state
-    dispatch(
-      updateTodo({
-        ...todo,
-        progress: newProgress,
-      })
-    );
+    const newProgress = progressStates[nextIndex];
+    const newChecked = newProgress === "Done";
+
+    setProgress(newProgress);
+    setChecked(newChecked);
+
+    const updatedTodo = {
+      ...todo,
+      progress: newProgress,
+    };
+
+    dispatch(updateTodo(updatedTodo));
+    console.log(updatedTodo);
   };
 
   return (

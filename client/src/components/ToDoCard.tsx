@@ -37,6 +37,7 @@ const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
   };
   const handlePriorityClick = (selectedPriority: string) => {
     setPriority(selectedPriority);
+    setIsButtonDisabled(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

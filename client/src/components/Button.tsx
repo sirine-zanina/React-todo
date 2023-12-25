@@ -40,17 +40,19 @@ const Button = ({ children, variant, type, style, ...rest }: ButtonProps) => {
   );
 };
 
-function SelectButton({
-  children,
-  id,
-}: {
+type SelectButtonProps = {
   children: React.ReactNode;
   id: string;
-}) {
+  value?: string | string[];
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+function SelectButton({ children, id, ...rest }: SelectButtonProps) {
   return (
     <select
       className={getClasses(styles.button, styles.button__select)}
       id={id}
+      {...rest}
     >
       {children}
     </select>
