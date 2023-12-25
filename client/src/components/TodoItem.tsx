@@ -8,6 +8,7 @@ import ProgressBtn from "./ProgressBtn";
 import { useAppDispatch } from "../app/hooks";
 import { deleteTodo, updateTodo } from "../features/todoSlice";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 import ToDoCard from "./ToDoCard";
 import CheckButton from "./CheckButton";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -15,6 +16,14 @@ import "react-circular-progressbar/dist/styles.css";
 
 type TodoItemProps = {
   todo: TodoListItem;
+};
+
+const child = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
@@ -78,7 +87,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <>
-      <div className={styles.item}>
+      <motion.div className={styles.item} variants={child}>
         <div className={styles.todoDetails}>
           <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className={styles.taskTitle}>
@@ -166,7 +175,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             <FontAwesomeIcon icon={faTrashCan} />
           </div>
         </div>
-      </div>
+      </motion.div>
       <ToDoCard
         type="update"
         todo={todo}

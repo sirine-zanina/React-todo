@@ -7,12 +7,34 @@ import { useAppDispatch } from "../app/hooks";
 import { addTodo, updateTodo } from "../features/todoSlice";
 import { v4 as uuid } from "uuid";
 import { Progress } from "../models/TodoListItem";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ToDoCardProps = {
   type: string;
   cardOpen: boolean;
   setCardOpen: (isOpen: boolean) => void;
   todo?: any;
+};
+
+const dropIn = {
+  hidden: {
+    opacity: 0,
+    transform: "scale(0.9)",
+  },
+  visible: {
+    transform: "scale(1)",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    transform: "scale(0.9",
+    opacity: 0,
+  },
 };
 
 const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
@@ -84,22 +106,36 @@ const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
   };
 
   return (
-    <div>
+    <AnimatePresence>
       {cardOpen && (
-        <div className={styles.wrapper}>
-          <div className={styles.container}>
+        <motion.div
+          className={styles.wrapper}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className={styles.container}
+            variants={dropIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
             <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
               <h1 className={styles.formTitle}>
                 {type === "update" ? "Update" : "Add"} Task
-                <div
+                <motion.div
                   className={styles.closeButton}
                   onClick={() => setCardOpen(false)}
                   onKeyDown={() => setCardOpen(false)}
                   tabIndex={0}
                   role="button"
+                  initial={{ top: 40, opacity: 0 }}
+                  animate={{ top: -10, opacity: 1 }}
+                  exit={{ top: 40, opacity: 0 }}
                 >
                   <MdOutlineClose />
-                </div>
+                </motion.div>
               </h1>
               <label htmlFor="title">Task</label>
               <input
@@ -166,10 +202,10 @@ const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
                 </Button>
               </div>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
-    </div>
+    </AnimatePresence>
   );
 };
 
