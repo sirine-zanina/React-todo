@@ -4,6 +4,8 @@
 
 ## ![todolist](client/public/images/main.png)
 
+---
+
 ### Frontend
 
 #### Technologies Used:
@@ -61,6 +63,7 @@
 ### Getting Started:
 
 1. Install dependencies:
+
    ```bash
    cd React-todo/server
    npm install
