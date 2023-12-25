@@ -17,10 +17,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false })); // for req.body
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("INDEX");
-});
-
 // Todo routes
 app.use("/todos", require("./src/routes/todos"));
 
