@@ -1,5 +1,7 @@
 # React-todolist
 ## A to-do list web app for an internship application.
+
+![alt text](https://github.com/sirine-zanina/React-todo/tree/main/client/public/images/main.png)
 ---
 ### Frontend
 #### Technologies Used:
