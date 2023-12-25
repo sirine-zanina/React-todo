@@ -11,6 +11,7 @@ const progressBtnTypes = {
 type ProgressBtnProps = {
   children: React.ReactNode;
   variant?: keyof typeof progressBtnTypes;
+  onClick?: () => void;
 };
 
 const ProgressBtn = ({ children, ...rest }: ProgressBtnProps) => {

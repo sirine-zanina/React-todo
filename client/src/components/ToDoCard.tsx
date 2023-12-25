@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/modules/card.module.scss";
 import { toast } from "react-hot-toast";
 import { MdOutlineClose } from "react-icons/md";
 import Button from "./Button";
 import { useAppDispatch } from "../app/hooks";
-import { addTodo } from "../features/todoSlice";
+import { addTodo, updateTodo } from "../features/todoSlice";
 import { v4 as uuid } from "uuid";
 import { Progress } from "../models/TodoListItem";
 
@@ -12,27 +12,38 @@ type ToDoCardProps = {
   type: string;
   cardOpen: boolean;
   setCardOpen: (isOpen: boolean) => void;
+  todo?: any;
 };
 
-const ToDoCard = ({ type, cardOpen, setCardOpen }: ToDoCardProps) => {
+const ToDoCard = ({ type, cardOpen, setCardOpen, todo }: ToDoCardProps) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("low");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (type === "update" && todo) {
+      setTitle(todo.title);
+      setPriority(todo.priority);
+    } else {
+      setTitle("");
+      setPriority("low");
+    }
+  }, [todo, cardOpen, type]);
 
-  const handlePriorityClick = (selectedPriority: string) => {
-    setPriority(selectedPriority);
-  };
+  const dispatch = useAppDispatch();
 
   const isButtonActive = (buttonPriority: string) => {
     return priority === buttonPriority;
+  };
+  const handlePriorityClick = (selectedPriority: string) => {
+    setPriority(selectedPriority);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     setIsButtonDisabled(false);
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title === "") {
@@ -51,12 +62,23 @@ const ToDoCard = ({ type, cardOpen, setCardOpen }: ToDoCardProps) => {
           })
         );
         toast.success("Task added successfully!");
-        setCardOpen(false);
       } else if (type === "update") {
-        console.log("updating");
+        // update logic here
+        if (todo.title !== title || todo.priority !== priority) {
+          // dispatch update action
+          dispatch(
+            updateTodo({
+              ...todo,
+              title,
+              priority,
+            })
+          );
+          toast.success("Task title updated successfully!");
+        } else {
+          toast.error("Please make some changes!");
+        }
       }
-    } else {
-      toast.error("Please add a title!");
+      setCardOpen(false);
     }
   };
 

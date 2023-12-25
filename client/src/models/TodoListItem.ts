@@ -19,9 +19,7 @@ export class TodoListItem implements Item {
     private _priority: string = "Low",
     private _progress: string = "To Do",
     private _time: string = new Date().toLocaleString()
-  ) {
-    console.log("TodoListItem created:", this);
-  }
+  ) {}
 
   get id(): number {
     return this._id;
