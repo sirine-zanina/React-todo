@@ -26,4 +26,19 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/sirine-zanina/React-todo.git
- 
+2. Install dependencies:
+   ```bash
+   cd React-todo/
+   npm  install
+3. Run the development server
+   ```BASH
+   npm start
+---
+### Backend
+#### Technologies Used:
+ -[Node.js](https://nodejs.org/) -A JavaScript runtime built on Chrome's V8 JavaScript engine.
+ -[Express.js](https://expressjs.com/) -A minimal and flexible Node.js web application framework.
+
+ -[Sequelize](https://sequelize.org/) -A promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite, and Microsoft SQL Server.
+ -[PostgreSQL](https://www.postgresql.org/) -A powerful, open-source relational database system.
+   
