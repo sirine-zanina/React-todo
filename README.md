@@ -4,22 +4,10 @@
 ## Stack
 ## Frontend
 ### Technologies Used:
-1. **React:**
-   - A declarative, efficient, and flexible JavaScript library for building user interfaces.
-   - Website: [React](https://reactjs.org/)
-
-2. **Redux Toolkit:**
-   - A set of tools to simplify the logic of managing state in React applications.
-   - Website: [Redux Toolkit](https://redux-toolkit.js.org/)
-
-3. **TypeScript:**
-   - A strict syntactical superset of JavaScript, adding static typing for enhanced code quality.
-   - Website: [TypeScript](https://www.typescriptlang.org/)
-   - 
-5. **Framer Motion:**
-   - A production-ready motion library for React, used for creating smooth animations.
-   - Website: [Framer Motion](https://www.framer.com/motion/)
-
+   -[React](https://reactjs.org/) -A declarative, efficient, and flexible JavaScript library for building user interfaces.
+   -[Redux Toolkit](https://redux-toolkit.js.org/) - A set of tools to simplify the logic of managing state in React applications.
+   -[TypeScript](https://www.typescriptlang.org/)-A strict syntactical superset of JavaScript, adding static typing for enhanced code quality.
+   -[Framer Motion](https://www.framer.com/motion/) - A production-ready motion library for React, used for creating smooth animations.
 ### Project Structure:
 - **src/components:** Contains reusable React components.
 - **src/app:** Manages the state of the application using Redux Toolkit.
@@ -34,5 +22,5 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/todo-list.git
+   git clone https://github.com/sirine-zanina/React-todo.git
  
