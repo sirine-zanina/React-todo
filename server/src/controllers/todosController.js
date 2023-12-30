@@ -25,6 +25,8 @@ const createTodo = asyncHandler(async (req, res) => {
       message: "All fields are required",
     });
   }
+  console.log("Received data:", { title, priority, progress });
+  console.log("Received request:", req.body, req.headers);
 
   // check for duplicates
   const duplicate = await Todo.findOne({ where: { title: title } });
